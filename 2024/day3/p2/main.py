@@ -15,39 +15,25 @@ pattern = r"mul\((-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)\)"
 matches = re.finditer(pattern, txt)
 
 results = []
-counter = 0
-
-do_not_found = False
+condition = ""
 
 for i in matches:
-    
     start_pos = i.start()
-    print(start_pos)
-    print(txt[start_pos:])
-    break
+
     before_match = txt[:start_pos]
-    print(before_match)
 
-    counter = counter + 1
+    for ch in range(len(before_match)):
+        if before_match[ch:ch+7] == "don't()":
+            condition = "don't"
+        if before_match[ch:ch+4] == "do()":
+            condition = "do"
 
-    if counter == 30:
-        break
+    if condition == "do":
+        num1 = int(i.group(1))
+        num2 = int(i.group(2))
 
-    # Check if 'don't()' appears before the current 'mul'
-    if "don't()" in before_match:
-        print("this is met")
-        do_not_found = True
-    # If 'don't()' hasn't been found, check if 'do()' has appeared
-    elif 'do()' in before_match or before_match == '':
-        # If the conditions are met, add the match to results
-        results.append(i.group(0))
+        result = num1 * num2
 
-#     num1 = int(i[0])
-#     num2 = int(i[1])
+        sum = sum + result
 
-#     result = num1 * num2
-
-#     sum = sum + result
-
-# print(sum)
-print(results)
+print(sum)
