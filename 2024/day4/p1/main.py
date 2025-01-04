@@ -9,7 +9,6 @@ match = 0
 for row_num in range(len(input_list)):    
     row = input_list[row_num]
     for ch in range(len(row)):
-        print(ch)
         # Horizontal
         if row[ch:ch+4] == "XMAS":
             print("found XMAS")
